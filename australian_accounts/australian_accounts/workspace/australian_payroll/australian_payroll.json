@@ -1,0 +1,44 @@
+{
+ "charts": [],
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Australian Payroll</span>\",\"col\":12}},{\"type\":\"card\",\"data\":{\"card_name\":\"PAYG\",\"col\":4}}]",
+ "creation": "2022-10-14 13:43:09.146035",
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "money-coins-1",
+ "idx": 0,
+ "label": "Australian Payroll",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "PAYG",
+   "link_count": 1,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "PAYG Payment Summaries",
+   "link_count": 0,
+   "link_to": "PAYG Payment Summaries",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2022-10-14 13:44:20.399760",
+ "modified_by": "Administrator",
+ "module": "Australian Accounts",
+ "name": "Australian Payroll",
+ "owner": "Administrator",
+ "parent_page": "Payroll",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 40.0,
+ "shortcuts": [],
+ "title": "Australian Payroll"
+}

@@ -1,0 +1,204 @@
+{
+ "actions": [],
+ "autoname": "ATO-.####",
+ "creation": "2018-04-30 21:55:14.914853",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_1",
+  "fiscal_year",
+  "quarter",
+  "bas_payg_setup_button",
+  "paygi",
+  "column_break_3",
+  "company",
+  "ato_ref",
+  "sales",
+  "total_sales_inc_gst",
+  "goods_and_services_tax",
+  "gst_received",
+  "column_break_10",
+  "gst_spent",
+  "salary_and_payg",
+  "total_salary_wages_other",
+  "column_break_14",
+  "amounts_withheld_from_total_salary",
+  "column_break_16",
+  "payment_due__owed",
+  "total_payment_or_refund",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break",
+   "label": "Ensure BAS and PAYG Setup has been completed or updated on change of Wages and Tax Accounts"
+  },
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "label": "Fiscal Year",
+   "options": "Fiscal Year",
+   "reqd": 1
+  },
+  {
+   "fieldname": "quarter",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Quarter",
+   "options": "\nJuly - September\nOctober - December\nJanuary - March\nApril - June",
+   "reqd": 1
+  },
+  {
+   "default": "href=\"#List/BAS%20and%20PAYG%20Setup/List\"",
+   "fieldname": "bas_payg_setup_button",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "BAS and PAYG Setup"
+  },
+  {
+   "default": "0",
+   "description": "PAYG income tax instalment if set by ATO",
+   "fieldname": "paygi",
+   "fieldtype": "Currency",
+   "label": "PAYGI"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "ato_ref",
+   "fieldtype": "Data",
+   "label": "ATO Reference"
+  },
+  {
+   "fieldname": "sales",
+   "fieldtype": "Section Break",
+   "label": "Sales"
+  },
+  {
+   "fieldname": "total_sales_inc_gst",
+   "fieldtype": "Currency",
+   "label": "G1 - Total Sales inc GST",
+   "read_only": 1
+  },
+  {
+   "fieldname": "goods_and_services_tax",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "gst_received",
+   "fieldtype": "Currency",
+   "label": "1A - GST received on Sales",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "gst_spent",
+   "fieldtype": "Currency",
+   "label": "1B - GST spent on Purchases",
+   "read_only": 1
+  },
+  {
+   "fieldname": "salary_and_payg",
+   "fieldtype": "Section Break",
+   "label": "Salary and PAYG"
+  },
+  {
+   "fieldname": "total_salary_wages_other",
+   "fieldtype": "Currency",
+   "label": "W1 - Total salary, wages and other payments",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amounts_withheld_from_total_salary",
+   "fieldtype": "Currency",
+   "label": "W2 - Amounts withheld from payments at W1",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "payment_due__owed",
+   "fieldtype": "Section Break",
+   "label": "Payment Due / Owed"
+  },
+  {
+   "fieldname": "total_payment_or_refund",
+   "fieldtype": "Currency",
+   "label": "Total Payment or Refund (if negative figure) due",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Business Activity Statements",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-10-20 15:48:13.699402",
+ "modified_by": "Administrator",
+ "module": "Australian Accounts",
+ "name": "Business Activity Statements",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "quarter"
+}

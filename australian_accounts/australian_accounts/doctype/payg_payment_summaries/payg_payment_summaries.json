@@ -1,0 +1,266 @@
+{
+ "actions": [],
+ "autoname": "PAYGS-.#####",
+ "creation": "2018-04-30 21:40:15.113889",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employee_details",
+  "fiscal_year",
+  "company",
+  "column_break_8",
+  "employee",
+  "employee_name",
+  "employee_address",
+  "column_break_9",
+  "employee_tfn",
+  "period_start_date",
+  "period_end_date",
+  "payment_details",
+  "gross_payments",
+  "cdep_payments",
+  "fb_payments",
+  "column_break_16",
+  "total_tax_withheld",
+  "superannuation_payments",
+  "total_allowances",
+  "column_break_19",
+  "lumpsum_a_payment",
+  "lumpsum_type",
+  "lumpsum_d_payment",
+  "lumpsum_e_payment",
+  "gross_payment_type",
+  "fbt_exemption",
+  "amended_from",
+  "section_break_28",
+  "allowances_detail",
+  "column_break_30"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee_details",
+   "fieldtype": "Section Break",
+   "label": "Employee Details"
+  },
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Fiscal Year",
+   "options": "Fiscal Year",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee.permanent_address",
+   "fieldname": "employee_address",
+   "fieldtype": "Small Text",
+   "label": "Employee Address",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee.tax_file_number",
+   "fieldname": "employee_tfn",
+   "fieldtype": "Data",
+   "label": "Employee TFN",
+   "read_only": 1
+  },
+  {
+   "fieldname": "period_start_date",
+   "fieldtype": "Data",
+   "label": "Period Start Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "period_end_date",
+   "fieldtype": "Data",
+   "label": "Period End Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "payment_details",
+   "fieldtype": "Section Break",
+   "label": "Payment Details"
+  },
+  {
+   "fieldname": "gross_payments",
+   "fieldtype": "Currency",
+   "label": "Gross Payments",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cdep_payments",
+   "fieldtype": "Currency",
+   "label": "CDEP Payments",
+   "read_only": 1
+  },
+  {
+   "fieldname": "fb_payments",
+   "fieldtype": "Currency",
+   "label": "Reportable Fringe Benefits Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_tax_withheld",
+   "fieldtype": "Currency",
+   "label": "Total Tax Withheld",
+   "read_only": 1
+  },
+  {
+   "fieldname": "superannuation_payments",
+   "fieldtype": "Currency",
+   "label": "Reportable Employer Superannuation Contributions",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_allowances",
+   "fieldtype": "Currency",
+   "label": "Total Allowances",
+   "read_only": 1
+  },
+  {
+   "fieldname": "allowances_detail",
+   "fieldtype": "Table",
+   "options": "PAYG Payment Summaries Detail",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_19",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "lumpsum_a_payment",
+   "fieldtype": "Currency",
+   "label": "Lump Sum: A",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lumpsum_type",
+   "fieldtype": "Data",
+   "label": "Lump Sum Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lumpsum_d_payment",
+   "fieldtype": "Currency",
+   "label": "Lump Sum: D",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lumpsum_e_payment",
+   "fieldtype": "Currency",
+   "label": "Lump Sum: E",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee.gross_payment_type",
+   "fieldname": "gross_payment_type",
+   "fieldtype": "Data",
+   "label": "Gross Payment Type",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "fbt_exemption",
+   "fieldtype": "Check",
+   "label": "Exempt from FBT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "PAYG Payment Summaries",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.allowances_detail",
+   "fieldname": "section_break_28",
+   "fieldtype": "Section Break",
+   "label": "Allowances"
+  },
+  {
+   "fieldname": "column_break_30",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-10-24 11:53:34.984923",
+ "modified_by": "Administrator",
+ "module": "Australian Accounts",
+ "name": "PAYG Payment Summaries",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,166 @@
+{
+ "actions": [],
+ "autoname": "field:company",
+ "creation": "2018-04-30 21:32:55.860222",
+ "doctype": "DocType",
+ "document_type": "Setup",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_1",
+  "company",
+  "section_break_3",
+  "table_1a",
+  "column_break_5",
+  "table_1b",
+  "section_break_7",
+  "table_w1",
+  "column_break_9",
+  "table_w2",
+  "payg_settings",
+  "fbt_exemption",
+  "column_break_2",
+  "section_break_13",
+  "temp_liab_acc",
+  "column_break_15",
+  "ato_supplier_account",
+  "column_break_18"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break",
+   "label": "Add all applicable tax codes to be reported on per ATO requirements",
+   "read_only": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "unique": 1
+  },
+  {
+   "fieldname": "section_break_3",
+   "fieldtype": "Section Break"
+  },
+  {
+   "description": "1A - GST collected. Select liability accounts relating to GST tax collected (sales)",
+   "fieldname": "table_1a",
+   "fieldtype": "Table",
+   "label": "Sales Tax (1A)",
+   "options": "BAS and PAYG Setup Detail"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "1B - GST spent. Select liability accounts relating to GST tax spent (purchases)",
+   "fieldname": "table_1b",
+   "fieldtype": "Table",
+   "label": "Purchase Tax (1B)",
+   "options": "BAS and PAYG Setup Detail"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "description": "W1 - Total salary, wages and other payments. Select expense accounts relating to salary, wages and other payments",
+   "fieldname": "table_w1",
+   "fieldtype": "Table",
+   "label": "Sales, wages and other Payments (W1)",
+   "options": "BAS and PAYG Setup Detail"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "payg_settings",
+   "fieldtype": "Section Break",
+   "label": "PAYG Settings"
+  },
+  {
+   "default": "0",
+   "fieldname": "fbt_exemption",
+   "fieldtype": "Check",
+   "label": "Exempt from FBT under section 57A of the FBTAA 1986"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break"
+  },
+  {
+   "description": "Specify a temporary Liability account for use in the creation of the journal entry when completing the BAS. When payment is made to ATO, create journal entry offsetting this account with the payment account.",
+   "fieldname": "temp_liab_acc",
+   "fieldtype": "Link",
+   "label": "Temporary Offset Liability Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Specify the supplier account specifically for ATO. Journal entries made from Business Activity Statements will appear against this supplier.",
+   "fieldname": "ato_supplier_account",
+   "fieldtype": "Link",
+   "label": "ATO Supplier Account",
+   "options": "Supplier"
+  },
+  {
+   "description": "W2 - Amounts withheld from payments at W1. Select liability accounts relating to payments withheld from W1.",
+   "fieldname": "table_w2",
+   "fieldtype": "Table",
+   "label": "Amounts withheld from payments at W1 (W2)",
+   "options": "BAS and PAYG Setup Detail"
+  },
+  {
+   "fieldname": "column_break_18",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "links": [],
+ "modified": "2022-10-21 15:50:39.296106",
+ "modified_by": "Administrator",
+ "module": "Australian Accounts",
+ "name": "BAS and PAYG Setup",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "company"
+}
