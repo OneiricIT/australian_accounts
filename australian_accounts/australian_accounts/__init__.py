@@ -167,16 +167,15 @@ def convert_quarter(quarter):
 	return quarternum
 
 
-# Calculate last date of specified quarter
-def last_day_of_quarter(fiscal, quarter):
+# Calculate first date of next specified quarter
+def first_day_of_next_quarter(fiscal, quarter):
 	q = convert_quarter(quarter)
 	if q > '2':
 		ydate = datetime.strptime(fiscal[:4], "%Y")
 	else:
 		ydate = datetime.strptime(fiscal[5:], "%Y")
 	mdate = datetime.strptime(quarter.split(' ')[0], "%B")
-	start_of_quarter = datetime(year=ydate.year, month=((math.floor(((mdate.month - 1) / 3) + 1) - 1) * 3) + 1, day=1)
-	return start_of_quarter + relativedelta(months=3, seconds=-1)
+	return datetime(year=ydate.year, month=((math.floor(((mdate.month - 1) / 3) + 1) - 1) * 3) + 4, day=1)
 
 
 
@@ -355,10 +354,10 @@ def make_bas_journal_entry(bas_doc):
 	
 	bdoc = frappe.get_doc("Business Activity Statements", bas_doc)
 	bsdoc = frappe.get_doc("BAS and PAYG Setup", bdoc.company)
-	# Get last day of quarter
-	postingdate = last_day_of_quarter(bdoc.fiscal_year, bdoc.quarter)
+	roundoff = frappe.db.get_value('Company', filters={'name': bdoc.company}, fieldname=['round_off_account'])
+	
 	jedoc = frappe.new_doc("Journal Entry")
-	jedoc.posting_date = postingdate
+	jedoc.posting_date = first_day_of_next_quarter(bdoc.fiscal_year, bdoc.quarter)
 	jedoc.title = 'BAS Clearing Journal '+str(bdoc.quarter)+' '+str(bdoc.fiscal_year)
 	jedoc.remark = 'BAS clearing Journal Entry to Temporary BAS Account for period '+str(bdoc.quarter)+' '+str(bdoc.fiscal_year)
 	jedoc.bill_no = bas_doc
@@ -366,6 +365,26 @@ def make_bas_journal_entry(bas_doc):
 	totdeb = 0
 	totcre = 0
 
+	# Add difference amount to Temporary BAS Liability account
+	if bdoc.total_payment_or_refund > 0:
+		# Payment expected, add in as credit
+		jedoc.append("accounts",{
+				"account": bsdoc.temp_liab_acc,
+				"party_type": 'Supplier',
+				"party": bsdoc.ato_supplier_account,
+				"credit_in_account_currency": bdoc.total_payment_or_refund,
+				"cost_center": ''
+			})
+	elif bdoc.total_payment_or_refund < 0:
+		# Refund expected, add in as debit
+		jedoc.append("accounts",{
+				"account": bsdoc.temp_liab_acc,
+				"party_type": 'Supplier',
+				"party": bsdoc.ato_supplier_account,
+				"debit_in_account_currency": bdoc.total_payment_or_refund,
+				"cost_center": ''
+			})
+	
 	# Get figures for each Sales GST accounts specified in BAS Setup - add debit figures
 	for row in bsdoc.table_1a:
 		db = account_gst_on_sales(bdoc.company, bdoc.fiscal_year, bdoc.quarter, row.account)
@@ -398,14 +417,21 @@ def make_bas_journal_entry(bas_doc):
 				"debit_in_account_currency": wf,
 			})
 	
-	# Add difference amount to Temporary BAS Liability account
-	jedoc.append("accounts",{
-			"account": bsdoc.temp_liab_acc,
-			"party_type": 'Supplier',
-			"party": bsdoc.ato_supplier_account,
-			"credit_in_account_currency": abs(totdeb-totcre),
-			"cost_center": ''
-		})
+	# Round off if difference in amount being sent to ATO
+	roundtot = abs(totdeb-totcre) - bdoc.total_payment_or_refund
+	if roundtot != 0:
+		if roundtot > 0:
+			# Add to credit
+			jedoc.append("accounts",{
+				"account": roundoff,
+				"credit_in_account_currency": abs(roundtot),
+			})
+		elif roundtot < 0:
+			# Add to debit
+			jedoc.append("accounts",{
+				"account": roundoff,
+				"debit_in_account_currency": abs(roundtot),
+			})
 
 	jedoc.save()
 	return jedoc.name
@@ -417,8 +443,7 @@ def make_bas_payment_entry(bas_doc):
 	bdoc = frappe.get_doc("Business Activity Statements", bas_doc)
 	bsdoc = frappe.get_doc("BAS and PAYG Setup", bdoc.company)
 	compdefault = frappe.db.get_value('Company', filters={'name': bdoc.company}, fieldname=['default_bank_account','round_off_account','cost_center'])
-	# Get last day of quarter
-	postingdate = last_day_of_quarter(bdoc.fiscal_year, bdoc.quarter)
+	postingdate = first_day_of_next_quarter(bdoc.fiscal_year, bdoc.quarter)
 
 	# Get linked Journal Entry posted end of quarter
 	je = frappe.db.get_value('Journal Entry', filters={'bill_no': bas_doc, 'posting_date': postingdate.date()}, fieldname='name')
@@ -541,8 +566,6 @@ def export_stp_to_csv(name,posting_date,is_final_pay_for_this_financial_year,sou
         fy = get_payg_fy(posting_date)
         fy_start = get_payg_fy_start(fy)
         
-        
-        ### UP TO HERE ###
         #Need to calculate W1 and W2 figures
         w1_period = 0.00
         w2_period = 0.00
