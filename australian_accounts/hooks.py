@@ -12,7 +12,7 @@ app_email = "support@oneiric.com.au"
 app_license = "MIT"
 
 
-fixtures = [{"dt":"Custom Field", "filters": [["fieldname", 'in', ("payment_type", "tax_file_number", "bank_bsb", "superfund", "supermembernumber", "gross_pay_excluding_nontaxable_components", "payment_type", "gross_payment_type", "column_break_56", "ytd_info", "ytd_deduction", "ytd_earning", "bank_bsb", "super_fund", "super_member", "tax_file_number", )]]},
+fixtures = [{"dt":"Custom Field", "filters": [["fieldname", 'in', ("payment_type", "tax_file_number", "bank_bsb", "superfund", "supermembernumber", "gross_pay_excluding_nontaxable_components", "payment_type", "gross_payment_type", "column_break_56", "ytd_info", "ytd_deduction", "ytd_earning", "bank_bsb", "super_fund", "super_member", "tax_file_number", "is_bas_entry")]]},
 			{"dt":"Workspace", "filters": {"module": "Australian Accounts"}}
        ]
 
