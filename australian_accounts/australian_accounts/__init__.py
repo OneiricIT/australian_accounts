@@ -50,11 +50,15 @@ def account_gst_on_sales(company, fiscalyear, quarter, account):
 	total = frappe.db.sql("""SELECT
 			SUM(gle.credit - gle.debit) AS expr1
 			FROM `tabGL Entry` gle
+				LEFT OUTER JOIN `tabJournal Entry` je
+					ON gle.voucher_no = je.name
 			WHERE gle.company = %(company)s
 			AND gle.fiscal_year = %(fiscalyear)s
 			AND QUARTER(gle.posting_date) = %(quarter)s
 			AND gle.is_cancelled = 0
-			AND gle.account = %(account)s""", {"company": company, "fiscalyear": fiscalyear, "quarter": convertedquarter, "account": account})[0][0]
+			AND gle.account = %(account)s
+			AND (je.is_bas_entry is NULL
+			OR je.is_bas_entry = 'No')""", {"company": company, "fiscalyear": fiscalyear, "quarter": convertedquarter, "account": account})[0][0]
 	if total is None:
 		return 0
 	else:
@@ -80,6 +84,8 @@ def account_gst_on_purchases(company, fiscalyear, quarter, account):
 			FROM `tabGL Entry` gle
 			INNER JOIN tabAccount acc
 				ON gle.account = acc.name
+			LEFT OUTER JOIN `tabJournal Entry` je
+				ON gle.voucher_no = je.name
 			WHERE acc.root_type = 'Liability'
 			AND acc.is_group = 0
 			AND gle.fiscal_year = %(fiscalyear)s
@@ -87,7 +93,9 @@ def account_gst_on_purchases(company, fiscalyear, quarter, account):
 			AND QUARTER(gle.posting_date) = %(quarter)s
 			AND gle.account = %(account)s
 			AND gle.is_cancelled = 0
-			AND acc.account_type = 'tax'""", {"company": company, "fiscalyear": fiscalyear, "quarter": convertedquarter, "account": account})[0][0]
+			AND acc.account_type = 'tax'
+			AND (je.is_bas_entry is NULL
+			OR je.is_bas_entry = 'No')""", {"company": company, "fiscalyear": fiscalyear, "quarter": convertedquarter, "account": account})[0][0]
 	if total is None:
 		return 0
 	else:
@@ -138,13 +146,17 @@ def account_salary_wages_withheld_w2(company, fiscalyear, quarter, account):
 			FROM `tabGL Entry` gle
 			INNER JOIN tabAccount acc
 				ON gle.account = acc.name
+			LEFT OUTER JOIN `tabJournal Entry` je
+				ON gle.voucher_no = je.name
 			WHERE acc.root_type = 'Liability'
 			AND acc.is_group = 0
 			AND gle.fiscal_year = %(fiscalyear)s
 			AND gle.company = %(company)s
 			AND QUARTER(gle.posting_date) = %(quarter)s
 			AND gle.is_cancelled = 0
-			AND gle.account = %(account)s""", {"company": company, "fiscalyear": fiscalyear, "quarter": convertedquarter, "account": account})[0][0]
+			AND gle.account = %(account)s
+			AND (je.is_bas_entry is NULL
+			OR je.is_bas_entry = 'No')""", {"company": company, "fiscalyear": fiscalyear, "quarter": convertedquarter, "account": account})[0][0]
 	if total is None:
 		return 0
 	else:
