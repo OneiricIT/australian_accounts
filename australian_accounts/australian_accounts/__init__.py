@@ -183,11 +183,15 @@ def convert_quarter(quarter):
 def first_day_of_next_quarter(fiscal, quarter):
 	q = convert_quarter(quarter)
 	if q > '2':
-		ydate = datetime.strptime(fiscal[:4], "%Y")
-	else:
 		ydate = datetime.strptime(fiscal[5:], "%Y")
+	else:
+		ydate = datetime.strptime(fiscal[:4], "%Y")
 	mdate = datetime.strptime(quarter.split(' ')[0], "%B")
-	return datetime(year=ydate.year, month=((math.floor(((mdate.month - 1) / 3) + 1) - 1) * 3) + 4, day=1)
+	if mdate.month is 10:
+		mth = 1
+	else:
+		mth = ((math.floor(((mdate.month - 1) / 3) + 1) - 1) * 3) + 4
+	return datetime(year=ydate.year, month=mth, day=1)
 
 
 
