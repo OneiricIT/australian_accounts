@@ -377,6 +377,7 @@ def make_bas_journal_entry(bas_doc):
 	jedoc.title = 'BAS Clearing Journal '+str(bdoc.quarter)+' '+str(bdoc.fiscal_year)
 	jedoc.remark = 'BAS clearing Journal Entry to Temporary BAS Account for period '+str(bdoc.quarter)+' '+str(bdoc.fiscal_year)
 	jedoc.bill_no = bas_doc
+	jedoc.is_bas_entry = 'Yes'
 	jedoc.write_off_based_on = 'Accounts Payable'
 	totdeb = 0
 	totcre = 0
@@ -470,6 +471,7 @@ def make_bas_payment_entry(bas_doc):
 	jedoc.title = 'BAS Payment to ATO '+str(bdoc.quarter)+' '+str(bdoc.fiscal_year)
 	jedoc.remark = 'BAS payment Journal Entry to ATO for period '+str(bdoc.quarter)+' '+str(bdoc.fiscal_year)
 	jedoc.bill_no = bas_doc
+	jedoc.is_bas_entry = 'Yes'
 	jedoc.write_off_based_on = 'Accounts Payable'
 
 	jedoc.append("accounts",{
