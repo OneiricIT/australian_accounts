@@ -8,7 +8,7 @@ frappe.ui.form.on("Business Activity Statements", {refresh: function(frm) {
 				args: {
 					doctype: 'Journal Entry',
 					fieldname: 'name',
-					filters: {'bill_no': cur_frm.doc.name}
+					filters: {'bill_no': cur_frm.doc.name, 'docstatus': 1, 'is_bas_entry': 'Yes' }
 				},
 				callback: function callback(r) {
 					if(r.message.length == 0){
@@ -28,12 +28,10 @@ frappe.ui.form.on("Business Activity Statements", {refresh: function(frm) {
 });
 
 let make_bas_journal_entry = function (frm) {
-	return frappe.call({
-		method: "australian_accounts.australian_accounts.make_bas_journal_entry",
-		args: {
-			bas_doc: frm.doc.name
-		},
-		callback: function callback(r) {
+	return frm.call({
+		doc: frm.doc,
+		method: "make_bas_journal_entry",
+		callback: function(r) {
 			console.log(r.message);
 			frappe.set_route(
 				'List', 'Journal Entry', {"Journal Entry Account.name": r.message}
@@ -45,12 +43,10 @@ let make_bas_journal_entry = function (frm) {
 };
 
 let make_bas_payment_entry = function (frm) {
-	return frappe.call({
-		method: "australian_accounts.australian_accounts.make_bas_payment_entry",
-		args: {
-			bas_doc: frm.doc.name
-		},
-		callback: function callback(r) {
+	return frm.call({
+		doc: frm.doc,
+		method: "make_bas_payment_entry",
+		callback: function(r) {
 			console.log(r.message);
 			frappe.set_route(
 				'List', 'Journal Entry', {"Journal Entry Account.name": r.message}
@@ -60,3 +56,5 @@ let make_bas_payment_entry = function (frm) {
 		freeze_message: __("Creating Journal Entry......")
 	});
 };
+
+
