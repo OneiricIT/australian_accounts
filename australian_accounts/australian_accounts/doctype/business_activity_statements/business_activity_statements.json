@@ -17,14 +17,19 @@
   "ato_ref",
   "sales",
   "total_sales_inc_gst",
+  "btn_calc_g1",
   "goods_and_services_tax",
   "gst_received",
+  "btn_calc_1a",
   "column_break_10",
   "gst_spent",
+  "btn_calc_1b",
   "salary_and_payg",
   "total_salary_wages_other",
+  "btn_calc_w1",
   "column_break_14",
   "amounts_withheld_from_total_salary",
+  "btn_calc_w2",
   "column_break_16",
   "payment_due__owed",
   "total_payment_or_refund",
@@ -157,11 +162,36 @@
    "options": "Business Activity Statements",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "btn_calc_g1",
+   "fieldtype": "Button",
+   "label": "Calc G1"
+  },
+  {
+   "fieldname": "btn_calc_1a",
+   "fieldtype": "Button",
+   "label": "Calc 1A"
+  },
+  {
+   "fieldname": "btn_calc_1b",
+   "fieldtype": "Button",
+   "label": "Calc 1B"
+  },
+  {
+   "fieldname": "btn_calc_w1",
+   "fieldtype": "Button",
+   "label": "Calc W1"
+  },
+  {
+   "fieldname": "btn_calc_w2",
+   "fieldtype": "Button",
+   "label": "Calc W2"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-10-20 15:48:13.699402",
+ "modified": "2023-01-08 15:09:22.461984",
  "modified_by": "Administrator",
  "module": "Australian Accounts",
  "name": "Business Activity Statements",
